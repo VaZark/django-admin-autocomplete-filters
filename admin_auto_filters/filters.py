@@ -193,6 +193,9 @@ class AutocompleteFilterBase(admin.SimpleListFilter):
         return value
 
     def queryset(self, request: Any, queryset: Any) -> Any:
+        if self.parameter_name is None:
+            self.parameter_name = self.generate_parameter_name()
+
         value = self.value()
         if not value:
             return queryset
